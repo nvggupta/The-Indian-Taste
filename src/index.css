@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.Sign-in {
+  width: 8rem;
+  height: 3rem;
+}
+.profile {
+  width: 30%;
+
+  height: 100%;
+  border-radius: 50%;
+}
+.vertical-row {
+  border-left: 2px solid whitesmoke;
+}
+.custom {
+  border: 1px solid red;
+}
+.Landing {
+  position: relative;
+  background: url("./Assets/240_F_704281540_Noh3xSwF8EpQKWlNQ8b5naUxMzFrWbLv.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  animation: fadeup 2s linear 0.3s 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@keyframes fadeup {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.btn {
+  padding: 15px 40px;
+  border: none;
+  outline: none;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+  border-radius: 12px;
+}
+.btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+.btn::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    red,
+    blue,
+    green,
+    yellow,
+    black,
+    violet,
+    purple,
+    pink
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 1;
+}
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+.btn:hover::before {
+  opacity: 1;
+}
+.btn:active::after {
+  background: transparent;
+}
+.btn:active {
+  color: #000;
+  font-weight: bold;
+}
+/*Login Form css */
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("./Assets/240_F_717227295_QpFc3exXHmfHfA4kGqdgY2T5VFQD81iy.jpg")
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.container {
+  width: 400px;
+  height: 500px;
+  background: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+.container > h2 {
+  color: #fff;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 2rem;
+}
+.form-group {
+  /* background-color: red; */
+  width: 330px;
+  margin: 30px 0;
+  position: relative;
+  border-bottom: 3px solid #fff;
+}
+.form-group input {
+  position: relative;
+  width: 100%;
+  height: 50px;
+
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  color: white;
+  padding: 0 30px 0 10px;
+  background: transparent;
+}
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+
+  transition: 0.5s;
+}
+input:focus ~ label,
+input:valid ~ label {
+  top: -5px;
+}
+.i {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1.2rem;
+}
+.para {
+  text-align: center;
+  color: #fff;
+  padding: 10px 0;
+}
+.para > a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+.para > a:hover {
+  text-decoration: underline;
+  font-style: italic;
+}
+#btn {
+  width: 100%;
+
+  /* border-radius: 40px; */
+  border: none;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  text-align: center;
+}
+#btn:hover {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+.errorMessage{
+  color: red
+}
+.scr::-webkit-scrollbar{
+    display: none;
+}
