@@ -46,7 +46,6 @@ function Dropdown() {
           </div>
         </div>
         <div className="bg-gray-500 w-full p-5 overflow-y-scroll scr absolute top-10 hidden " ref={dropdownList}>
-        <Button  variant="contained" onClick={dispatch(filterItmes("reset"))}>Reset Filter</Button>
           <ul>
             {menu_list.map((elem) => (
               <DropdownList name={elem.menu_name} />
