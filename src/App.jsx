@@ -1,3 +1,4 @@
+import Cart from "./Components/Cart/Cart";
 import Header from "./Components/Header/Header";
 import Landing from "./Components/LandingPage/Landing";
 import Login from "./Components/Login";
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/menu" element={<Menu />}></Route>
+          <Route path="/checkout" element={<Cart />}></Route>
         </Routes>
       </Router>
     </>

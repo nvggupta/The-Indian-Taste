@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { increaseQuantity,decreaseQuantity } from '../MenuSlice/MenuSlice';
 function MenuCard({id , name , price , pics , quantity}) {
  const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function MenuCard({id , name , price , pics , quantity}) {
         </div>
         <div className="flex flex-col gap-5 justify-between">
         {(quantity!=0) ? <ADDItems id={id} quantity={quantity}/>  : <Button onClick={()=>dispatch(increaseQuantity(id))} variant="contained">Add To Cart</Button>}  
-          <Button variant="contained">Go TO Cart</Button>
+          <Link  to={'/checkout'}><Button variant="contained">Go TO Cart</Button></Link>
         </div>
       </div>
     </div>

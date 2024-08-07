@@ -66,10 +66,10 @@ export const MenuSlice = createSlice({
         const cartItem = state[2].find((elem) => elem._id === action.payload);
         if (cartItem) {
           cartItem.quantity = item.quantity;
-          cartItem.totalPrice = item.totalPrice;
+          cartItem.totalPrice =item.price * item.quantity;
         }
       }
-
+        
     },
   },
 });

@@ -63,7 +63,7 @@ function Header() {
                   <p>9999999999</p>
                 </div>
                 <CiSearch className="text-2xl" />
-                <FaCartArrowDown className="text-2xl" />
+               <Link to={"/checkout"}> <FaCartArrowDown className="text-2xl" /></Link>
               </div>
               <div className="vertical-row mx-4 h-10 border-l border-white"></div>
               <div className="flex items-center justify-around flex-1">
