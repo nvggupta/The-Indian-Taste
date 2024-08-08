@@ -10,74 +10,75 @@ import { useEffect, useState, useRef } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../FireBase/firebase";
 import { RxCross2 } from "react-icons/rx";
-
+import { useNavigate } from "react-router-dom";
 function Header() {
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState(
     localStorage.getItem("user") || false
   );
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const humBurgerRef = useRef(null);
+
   const handleHumburgerMenu = () => {
     humBurgerRef.current.style.display = "none";
   };
+
   const openHumbburgerMenu = () => {
     humBurgerRef.current.style.display = "block";
   };
-
+  const handleLogOut = ()=>{
+   localStorage.removeItem('user');
+    navigate('/');
+  }
   return (
     <>
-      <div className="h-40">
+      <div className="h-20">
         <div className="fixed top-0 z-50 w-full bg-gray-800 pb-4 pt-4">
-          <Link to={"/"}>
-            <div className="flex flex-col items-center text-2xl sm:text-3xl">
-              <h3 className="text-center">
-                <span className="text-purple-600">❚█══</span>
-                <span className="text-orange-600"> 𝕋𝕙𝕖</span>
-                <span className="text-white"> 𝕀𝕟𝕕𝕚𝕒𝕟</span>
-                <span className="text-green-600"> 𝕋𝕒𝕤𝕥𝕖</span>
-                <span className="text-purple-600"> ══█❚</span>
-              </h3>
-              <span className="text-white text-sm sm:text-base">𝑭𝒐𝒐𝒅 𝑪𝒐𝒖𝒓𝒕 𝑶𝒏 𝑨𝒏 𝑨𝒑𝒑</span>
-            </div>
-          </Link>
           <div className="flex justify-between items-center px-4">
-            <div className="hidden sm:flex sm:w-1/2">
-              <div className="flex items-center text-white">
-                <MdLocationPin />
-                <h4>Delhi, New Delhi</h4>
-                <MdKeyboardArrowDown />
+            <Link to={"/"}>
+              <div className="flex flex-col items-center text-[25px] md:text-3xl">
+                <h3 className="text-center flex gap-2">
+                  <span className="text-orange-600 "> 𝕋𝕙𝕖</span>
+                  <span className="text-white"> 𝕀𝕟𝕕𝕚𝕒𝕟</span>
+                  <span className="text-green-600"> 𝕋𝕒𝕤𝕥𝕖</span>
+                </h3>
+                <span className="text-white text-sm sm:text-base">
+                  𝑭𝒐𝒐𝒅 𝑪𝒐𝒖𝒓𝒕 𝑶𝒏 𝑨𝒏 𝑨𝒑𝒑
+                </span>
               </div>
-              <p className="text-white">
-                Connaught Place Minto Road, New Delhi
-              </p>
-            </div>
-            <div className="flex justify-around items-center w-full sm:w-1/2">
-              <div className="flex items-center justify-center gap-5 text-white">
-                <IoMdCall />
-                <div>
-                  <p>Call Us At</p>
-                  <p>9999999999</p>
+            </Link>
+            <div className="flex items-center text-white gap-5">
+              <div className="hidden sm:flex sm:w-fit py-2 items-center">
+                <div className="flex items-center">
+                  <MdLocationPin />
+                  <h4>Delhi, New Delhi</h4>
+                  <MdKeyboardArrowDown />
                 </div>
+                <p className="text-xs">Connaught Place Minto Road, New Delhi</p>
+              </div>
+              <div className="hidden sm:flex max-w-xl text-right items-center">
+                {isLoggedIn ? (
+                  <>
+                    <p className="mr-4 w-fit px-2 flex gap-5 ">
+                     <span>{profileData && profileData.slice(0, 2).toUpperCase()}</span> 
+                      <span className="cursor-pointer mr-4" onClick={handleLogOut}>Logout</span>
+                    </p>
+                  </>
+                ) : (
+                  <span className="w-[500px] mr-4">Sign-In</span>
+                )}
                 <Link to={"/checkout"}>
                   <FaCartArrowDown className="text-2xl" />
                 </Link>
               </div>
-              <div className="flex items-center justify-around flex-1">
-                <Link to={"/Login"}>
-                  <div className="Sign-in text-white flex items-center justify-around">
-                    <span>
-                      {profileData ? profileData.slice(0, 2) : "Sign In"}
-                    </span>
-                  </div>
-                </Link>
-                <IoMenu
-                  className="text-2xl text-white cursor-pointer sm:hidden"
-                  onClick={openHumbburgerMenu}
-                />
-              </div>
+              <IoMenu
+                className="text-2xl cursor-pointer sm:hidden"
+                onClick={openHumbburgerMenu}
+              />
             </div>
           </div>
           <div
-            className="absolute z-50 right-2 bg-slate-100 h-[50vh] top-16 w-full sm:w-1/5 hidden p-5"
+            className="absolute right-2 bg-slate-100 top-[100px] w-full sm:w-1/5 hidden p-5"
             ref={humBurgerRef}
           >
             <div className="flex flex-col gap-5 h-full w-full">

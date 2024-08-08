@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 .Sign-in {
-  width: 8rem;
-  height: 3rem;
+  /* width: 8rem; */
+  /* height: 3rem; */
 }
 .profile {
   width: 30%;

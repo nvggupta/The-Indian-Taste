@@ -14,7 +14,7 @@ function Menu() {
 
   return (
     <div className="flex flex-col items-center gap-10 mt-10 px-4">
-      <div className="flex flex-wrap justify-center w-full lg:w-1/2 gap-4">
+      <div className="grid  grid-cols-4  justify-center items-center w-full max-w-[800px]  gap-2">
         {Menu.map((elem) => (
           <MenuList key={elem.menu_name} name={elem.menu_name} pics={elem.menu_image} />
         ))}

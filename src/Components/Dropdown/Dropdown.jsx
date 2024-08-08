@@ -29,7 +29,7 @@ function Dropdown() {
   
   return (
     <>
-      <div className="w-1/4 flex flex-col gap-4 relative">
+      <div className="md:w-1/4 flex flex-col gap-4 relative w-full">
         <div
           className="w-full bg-gray-500 p-5 flex justify-between items-center cursor-pointer"
           onClick={handleDropDown}

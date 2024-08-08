@@ -17,9 +17,11 @@ function Landing() {
     setLoggedIn(localStorage.getItem("user"));
   }, []);
 
+  console.log(loggedIn)
+
   return (
     <>
-      <div className="Landing relative h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('path_to_your_image.jpg')" }}>
+      <div className="bg-black relative h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('path_to_your_image.jpg')" }}>
         <div className="overlay absolute inset-0 bg-black opacity-50"></div>
         <div className="content relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
           <h1 className="text-4xl sm:text-6xl font-bold mb-4">Experience the Authentic Flavors of India</h1>
