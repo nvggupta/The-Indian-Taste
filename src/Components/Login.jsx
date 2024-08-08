@@ -25,6 +25,7 @@ function Login() {
          await updateProfile(user , {
           displayName: values.name,
         })
+        localStorage.setItem("user",values.email);
         navigate('/')
       })
       .catch(err => setErrorMessage(err.message));
