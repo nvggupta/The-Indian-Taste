@@ -15,7 +15,13 @@ const initialState = [
   },
   [
 
-  ]
+  ],
+  {
+    pics: "",
+    name: "",
+    desc: "",
+    isShow: false
+  }
 ];
 
 export const MenuSlice = createSlice({
@@ -71,8 +77,16 @@ export const MenuSlice = createSlice({
       }
         
     },
+    getDescription: (state , action)=>{
+     const  items = state[0].foodItems.find((elem)=>elem._id===action.payload);
+     state[3].name = items.name;
+     state[3].desc = items.description;
+     state[3].pics = items.image
+     state[3].isShow = true;
+    }
+
   },
 });
 
-export const { filterItmes,selectItems,increaseQuantity,decreaseQuantity } = MenuSlice.actions;
+export const { filterItmes,selectItems,increaseQuantity,decreaseQuantity,getDescription } = MenuSlice.actions;
 export default MenuSlice.reducer;

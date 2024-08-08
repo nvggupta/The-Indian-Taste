@@ -6,22 +6,30 @@ import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { filterItmes } from "../MenuSlice/MenuSlice";
+import { useEffect, useRef, useState } from "react";
 
-function Menu() {
+function Menu({descShow }) {
   const Food = useSelector((state) => state.Menu[0].foodItems);
   const Menu = useSelector((state) => state.Menu[0].menu_list);
   const dispatch = useDispatch();
+
 
   return (
     <div className="flex flex-col items-center gap-10 mt-10 px-4">
       <div className="grid  grid-cols-4  justify-center items-center w-full max-w-[800px]  gap-2">
         {Menu.map((elem) => (
-          <MenuList key={elem.menu_name} name={elem.menu_name} pics={elem.menu_image} />
+          <MenuList
+            key={elem.menu_name}
+            name={elem.menu_name}
+            pics={elem.menu_image}
+          />
         ))}
       </div>
       <div className="w-full flex flex-col lg:flex-row justify-around items-center gap-6 lg:gap-0">
         <div className="flex flex-col w-full lg:w-1/2">
-          <h1 className="font-semibold text-2xl">What would you like to order</h1>
+          <h1 className="font-semibold text-2xl">
+            What would you like to order
+          </h1>
           <div className="flex items-center gap-4 mt-2">
             <input
               type="text"
@@ -32,7 +40,10 @@ function Menu() {
             <CgSearch className="text-2xl" />
           </div>
         </div>
-        <Button variant="contained" onClick={() => dispatch(filterItmes("reset"))}>
+        <Button
+          variant="contained"
+          onClick={() => dispatch(filterItmes("reset"))}
+        >
           Complete Menu
         </Button>
         <Dropdown />
@@ -46,6 +57,7 @@ function Menu() {
             pics={elem.image}
             price={elem.price}
             quantity={elem.quantity}
+            descShow={descShow}
           />
         ))}
       </div>
