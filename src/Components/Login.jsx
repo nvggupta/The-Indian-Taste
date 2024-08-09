@@ -5,7 +5,10 @@ import { useState } from "react";
 import { FaLock } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser } from "./MenuSlice/user";
 function Login() {
+  const dispatch = useDispatch()
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -26,10 +29,14 @@ function Login() {
           displayName: values.name,
         })
         localStorage.setItem("user",values.email);
+        console.log(user.reloadUserInfo);
+        
+        dispatch(updateUser(user.reloadUserInfo));
         navigate('/')
       })
       .catch(err => setErrorMessage(err.message));
   }
+
   return (
     <div className="main">
       <div className='container'>

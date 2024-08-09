@@ -10,7 +10,11 @@ function AIDialogueBox() {
     const [loading, setLoading] = useState(false);
 
     const openDialogue = () => setIsOpen(true);
-    const closeDialogue = () => setIsOpen(false);
+    const closeDialogue = () => {
+        setIsOpen(false);
+        setInputValue("");
+        setAiResponse("");
+    }
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);

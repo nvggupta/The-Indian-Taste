@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import ReactMarkdown from 'react-markdown';
 import AIDialogueBox from "../AI/AI";
+import { useDispatch, useSelector } from "react-redux";
 function Landing() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const userData = useSelector(state=>state.User);
+  console.log("userData",userData.displayName)
 
   const handleLogin = () => {
     if (loggedIn) {
@@ -30,9 +33,9 @@ function Landing() {
           <h1 className="text-4xl sm:text-6xl font-bold mb-4">Experience the Authentic Flavors of India</h1>
           <p className="text-xl sm:text-2xl mb-8">Discover a World of Exquisite Indian Dishes, Crafted with Love</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-10 w-full max-w-3xl">
-            <button className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Reserve Your Table Today</button>
-            <button onClick={handleLogin} className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Explore Our Menu</button>
-            <button className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Order Online for Home Delivery</button>
+            <Link to={"/reservation"}><button className="btn bg-purple-600 text-white py-2 px-4 rounded-lg w-full transition duration-300 hover:bg-purple-800">Reserve Your Table Today</button></Link>
+            {(loggedIn) ? <button onClick={handleLogin} className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Explore Our Menu</button>: navigate('/login')}
+            <button disabled className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Order Online for Home Delivery</button>
           </div>
         </div>
       </div>

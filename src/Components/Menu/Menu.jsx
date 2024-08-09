@@ -63,7 +63,7 @@ function Menu({descShow }) {
           />
         ))}
       </div>
-      <div className="fixed right-5 bottom-10 rounded-2xl z-30">
+      <div className="fixed right-5 bottom-10 rounded-2xl z-30 text-white bg-black">
       <AIDialogueBox/>
       </div>
     </div>

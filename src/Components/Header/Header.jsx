@@ -11,13 +11,21 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../FireBase/firebase";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../MenuSlice/user";
+import { clear } from "toastr";
 function Header() {
   const navigate = useNavigate();
-  const [profileData, setProfileData] = useState(
-    localStorage.getItem("user") || false
-  );
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const dispatch = useDispatch();
+  const [profileData, setProfileData] = useState(null);
   const humBurgerRef = useRef(null);
+  const userData = useSelector((state) => state.User);
+  useEffect(() => {
+    if (userData.email) {
+      setProfileData(userData.email);
+    }
+  }, []);
 
   const handleHumburgerMenu = () => {
     humBurgerRef.current.style.display = "none";
@@ -26,10 +34,14 @@ function Header() {
   const openHumbburgerMenu = () => {
     humBurgerRef.current.style.display = "block";
   };
-  const handleLogOut = ()=>{
-   localStorage.removeItem('user');
-    navigate('/');
-  }
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    dispatch(clearUser());
+    navigate("/login");
+  };
+  const handleSignIn = () => {
+    navigate("/login");
+  };
   return (
     <>
       <div className="h-20">
@@ -38,9 +50,9 @@ function Header() {
             <Link to={"/"}>
               <div className="flex flex-col items-center text-[25px] md:text-3xl">
                 <h3 className="text-center flex gap-2">
-                  <span className="text-orange-600 "> 𝕋𝕙𝕖</span>
-                  <span className="text-white"> 𝕀𝕟𝕕𝕚𝕒𝕟</span>
-                  <span className="text-green-600"> 𝕋𝕒𝕤𝕥𝕖</span>
+                  <span className="text-orange-600">𝕋𝕙𝕖</span>
+                  <span className="text-white">𝕀𝕟𝕕𝕚𝕒𝕟</span>
+                  <span className="text-green-600">𝕋𝕒𝕤𝕥𝕖</span>
                 </h3>
                 <span className="text-white text-sm sm:text-base">
                   𝑭𝒐𝒐𝒅 𝑪𝒐𝒖𝒓𝒕 𝑶𝒏 𝑨𝒏 𝑨𝒑𝒑
@@ -57,19 +69,24 @@ function Header() {
                 <p className="text-xs">Connaught Place Minto Road, New Delhi</p>
               </div>
               <div className="hidden sm:flex max-w-xl text-right items-center">
-                {isLoggedIn ? (
-                  <>
-                    <p className="mr-4 w-fit px-2 flex gap-5 ">
-                     <span>{profileData && profileData.slice(0, 2).toUpperCase()}</span> 
-                      <span className="cursor-pointer mr-4" onClick={handleLogOut}>Logout</span>
-                    </p>
-                  </>
+                {userData.email ? (
+                  <p className="mr-4 w-fit px-2 flex gap-5">
+                    <span>Welcome {userData.displayName}</span>
+                    <span
+                      className="cursor-pointer mr-4"
+                      onClick={handleLogOut}
+                    >
+                      Logout
+                    </span>
+                    <Link to={"/checkout"}>
+                      <FaCartArrowDown className="text-2xl" />
+                    </Link>
+                  </p>
                 ) : (
-                  <span className="w-[500px] mr-4">Sign-In</span>
+                  <Link to={'/login'}><span className="cursor-pointer mr-4" onClick={handleSignIn}>
+                    Sign-In
+                  </span></Link>
                 )}
-                <Link to={"/checkout"}>
-                  <FaCartArrowDown className="text-2xl" />
-                </Link>
               </div>
               <IoMenu
                 className="text-2xl cursor-pointer sm:hidden"
