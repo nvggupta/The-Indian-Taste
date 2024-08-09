@@ -35,7 +35,7 @@ function Landing() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-10 w-full max-w-3xl">
             <Link to={"/reservation"}><button className="btn bg-purple-600 text-white py-2 px-4 rounded-lg w-full transition duration-300 hover:bg-purple-800">Reserve Your Table Today</button></Link>
             {(loggedIn) ? <button onClick={handleLogin} className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Explore Our Menu</button>: navigate('/login')}
-            <button disabled className="btn bg-purple-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Order Online for Home Delivery</button>
+           <Link to={'/onlineOrder'}> <button  className="btn bg-purple-600 text-white w-full py-2 px-4 rounded-lg transition duration-300 hover:bg-purple-800">Order Online for Home Delivery</button></Link>
           </div>
         </div>
       </div>
