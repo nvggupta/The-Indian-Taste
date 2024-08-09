@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import ReactDOM from 'react-dom';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import ReactMarkdown from 'react-markdown';
+import AIDialogueBox from "../AI/AI";
 function Landing() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -33,6 +36,12 @@ function Landing() {
           </div>
         </div>
       </div>
+      <div className="absolute right-5 bottom-10 rounded-2xl z-30">
+      <AIDialogueBox/>
+      </div>
+      <>
+
+      </>
     </>
   );
 }

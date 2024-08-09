@@ -7,7 +7,9 @@ import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { filterItmes } from "../MenuSlice/MenuSlice";
 import { useEffect, useRef, useState } from "react";
-
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import ReactMarkdown from 'react-markdown';
+import AIDialogueBox from "../AI/AI";
 function Menu({descShow }) {
   const Food = useSelector((state) => state.Menu[0].foodItems);
   const Menu = useSelector((state) => state.Menu[0].menu_list);
@@ -60,6 +62,9 @@ function Menu({descShow }) {
             descShow={descShow}
           />
         ))}
+      </div>
+      <div className="fixed right-5 bottom-10 rounded-2xl z-30">
+      <AIDialogueBox/>
       </div>
     </div>
   );

@@ -2,10 +2,13 @@ import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { increaseQuantity, decreaseQuantity,getDescription } from "../MenuSlice/MenuSlice";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function MenuCard({ id, name, price, pics, quantity,  descShow  }) {
   const dispatch = useDispatch();
- 
+ const handleAddToCart = ()=>{
+   dispatch(increaseQuantity(id));
+}
   return (
     <>
       <div className="flex flex-col justify-between p-3 rounded-xl shadow-xl w-full sm:w-80 bg-white">
@@ -24,7 +27,7 @@ function MenuCard({ id, name, price, pics, quantity,  descShow  }) {
               <ADDItems id={id} quantity={quantity} />
             ) : (
               <Button
-                onClick={() => dispatch(increaseQuantity(id))}
+                onClick={handleAddToCart}
                 variant="contained"
               >
                 Add To Cart

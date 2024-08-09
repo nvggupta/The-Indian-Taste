@@ -8,6 +8,8 @@ import PageNoteFOund from "./Components/PageNoteFOund";
 import Signup from "./Components/Signup";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Footer from "./Components/Footer/Footer";
+import AI from "./Components/AI/AI";
 function App() {
   const [showDesc, setShowDesc] = useState(false);
   const values = useSelector((state) => state.Menu[3]);
@@ -37,8 +39,10 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="menu" element={<Menu descShow={descShow} />} />
             <Route path="/checkout" element={<Cart />} />
+         
             <Route path="*" element={<PageNoteFOund />} />
           </Routes>
+          <Footer />
         </div>
         {showDesc && (
           <div className="backdrop" onClick={() => setShowDesc(false)}>
