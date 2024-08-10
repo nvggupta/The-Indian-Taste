@@ -52,7 +52,6 @@ function Login() {
                 <label htmlFor='password'></label>
                 <FaLock className="i"/>
             </div>
-            <p className="para"><input type='checkbox' />Remember me<a href='#'>Forget Password</a></p>
             <p className="para" style={{color:"red"}}>{errorMessage}</p>
             <button type='button' id="btn" className="btn" onClick={SignInHandler}>Login</button>
             <Link to={'/Signup'}><p className="para">Don't Have an Account <a href='#'>Register</a></p></Link>

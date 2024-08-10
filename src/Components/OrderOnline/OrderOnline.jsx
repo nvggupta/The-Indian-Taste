@@ -1,7 +1,12 @@
 import React from 'react';
 import { MdRestaurantMenu, MdShoppingCart } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const OrderOnline = () => {
+  const navigate = useNavigate();
+  const handleOnlineOrder = ()=>{
+    navigate('/menu');
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
@@ -37,6 +42,7 @@ const OrderOnline = () => {
           <button
             type="submit"
             className="w-full py-2 px-4 bg-red-500 text-white font-semibold rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+          onClick={handleOnlineOrder}
           >
             Place Order
             <MdShoppingCart className="inline ml-2" />

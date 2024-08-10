@@ -1,8 +1,12 @@
 import React from 'react';
 import { TextField, Button, MenuItem } from '@mui/material';
 import { FaCalendarAlt, FaClock, FaUsers } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
 const Reservation = () => {
+  const navigate = useNavigate();
+  const handleOnlineOrder = ()=>{
+    navigate('/menu');
+  }
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-3xl font-bold mb-6">Reserve Your Table</h1>
@@ -45,7 +49,7 @@ const Reservation = () => {
             ))}
           </TextField>
         </div>
-        <Button variant="contained" color="primary" fullWidth>
+        <Button onClick={handleOnlineOrder} variant="contained" color="primary" fullWidth>
           Reserve Now
         </Button>
       </form>

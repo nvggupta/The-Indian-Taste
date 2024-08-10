@@ -3,8 +3,8 @@ import { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { auth } from "./FireBase/firebase"; 
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { FaLongArrowAltRight } from "react-icons/fa";
 function Signup() {
   const [values, setValues] = useState({
     name: "",
@@ -72,10 +72,14 @@ function Signup() {
             <label htmlFor="password"></label>
             <FaLock className="i" />
           </div>
-          <p className="errorMessage">{errorMessage}</p>
+          <p className="errorMessage text-red-500">{errorMessage}</p>
           <button type="button" id="btn" className="btn" onClick={SignUpHandler}>
             Sign-Up
           </button>
+          <div className="flex items-center justify-center mb-5">
+          <Link to={'/login'}><p className="text-center font-[400] text-2xl p-2 cursor-pointer  text-white" >Back To Login</p></Link>
+          <FaLongArrowAltRight className="text-4xl text-white"/>
+          </div>
         </form>
       </div>
     </div>

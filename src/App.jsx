@@ -12,6 +12,7 @@ import Footer from "./Components/Footer/Footer";
 import AI from "./Components/AI/AI";
 import Reservation from "./Components/ReservedYourTable/Reservation";
 import OrderOnline from "./Components/OrderOnline/OrderOnline";
+import PaymentSuccess from "./Components/Payment/PaymentPaymentSuccess";
 function App() {
   const [showDesc, setShowDesc] = useState(false);
   const values = useSelector((state) => state.Menu[3]);
@@ -43,6 +44,7 @@ function App() {
             <Route path="/checkout" element={<Cart />} />
               <Route path="/reservation" element={<Reservation />}></Route>
               <Route path="/onlineOrder" element={<OrderOnline />}></Route>
+              <Route path="/paymentSuccess" element={<PaymentSuccess />}></Route>
             <Route path="*" element={<PageNoteFOund />} />
           </Routes>
           <Footer />

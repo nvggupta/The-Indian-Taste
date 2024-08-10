@@ -27,7 +27,7 @@ function Menu({descShow }) {
           />
         ))}
       </div>
-      <div className="w-full flex flex-col lg:flex-row justify-around items-center gap-6 lg:gap-0">
+      <div className="w-full flex flex-col lg:flex-row justify-around items-center gap-6 lg:gap-0 ">
         <div className="flex flex-col w-full lg:w-1/2">
           <h1 className="font-semibold text-2xl">
             What would you like to order
