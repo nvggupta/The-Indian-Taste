@@ -6,71 +6,50 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearUser } from "../MenuSlice/user";
 import { RxCross2 } from "react-icons/rx";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [profileData, setProfileData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const Data = useSelector((state) => state.User); // Get user data from Redux
-  const [userData , setUserData] = useState(JSON.parse(localStorage.getItem("user"))|| null)
+  const userData = JSON.parse(localStorage.getItem("user")) || null;
 
-  // useEffect(() => {
-  //   if (data?.email) {
-  //     setProfileData(userData?.email);
-  //     setUserData(data);
-  //   } else {
-  //     setProfileData(null);
-  //     setUserData(null);
-  //   }
-  // }, []);
-  
-  const handleHumburgerMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const handleHumburgerMenu = () => setIsMenuOpen(false);
 
-  const openHumbburgerMenu = () => {
-    setIsMenuOpen(true);
-  };
+  const openHumbburgerMenu = () => setIsMenuOpen(true);
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
     dispatch(clearUser());
+    setIsMenuOpen(false); // Close menu
     navigate("/login");
   };
 
   const handleSignIn = () => {
+    setIsMenuOpen(false); // Close menu
     navigate("/login");
   };
-  useEffect(()=>{
-    if(userData) setUserData(null);
-  },[userData])
-  const UserLinks = () => (
-    <>
-      {userData?.email ? (
-        <p className="mr-4 w-fit px-2 flex gap-5">
-          <span>Welcome {userData?.displayName || "User"}</span>
-          <span className="cursor-pointer mr-4" onClick={handleLogOut}>
-            Logout
-          </span>
-          <Link to={"/checkout"}>
-            <FaCartArrowDown className="text-2xl" />
-          </Link>
-        </p>
-      ) : (
-        <Link to={"/login"}>
-          <span className="cursor-pointer mr-4" onClick={handleSignIn}>
-            Sign-In
-          </span>
+
+  const UserLinks = () =>
+    userData?.email ? (
+      <div className="mr-4 flex items-center gap-5">
+        <span>Welcome {userData.displayName || "User"}</span>
+        <span className="cursor-pointer" onClick={handleLogOut}>
+          Logout
+        </span>
+        <Link to="/checkout">
+          <FaCartArrowDown className="text-2xl" />
         </Link>
-      )}
-    </>
-  );
+      </div>
+    ) : (
+      <Link to="/login" className="cursor-pointer mr-4">
+        Sign-In
+      </Link>
+    );
 
   return (
     <>
