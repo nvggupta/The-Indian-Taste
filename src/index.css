@@ -276,3 +276,6 @@ input:valid ~ label {
   justify-content: center;
   z-index: 50;
 }
+.hideSlider::-webkit-scrollbar{
+  display: none;
+}

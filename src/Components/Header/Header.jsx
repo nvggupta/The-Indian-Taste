@@ -17,16 +17,19 @@ function Header() {
   const dispatch = useDispatch();
   const [profileData, setProfileData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const userData = useSelector((state) => state.User); // Get user data from Redux
+  const Data = useSelector((state) => state.User); // Get user data from Redux
+  const [userData , setUserData] = useState(JSON.parse(localStorage.getItem("user"))|| null)
 
-  useEffect(() => {
-    if (userData?.email) {
-      setProfileData(userData.email);
-    } else {
-      setProfileData(null);
-    }
-  }, [userData]);
-
+  // useEffect(() => {
+  //   if (data?.email) {
+  //     setProfileData(userData?.email);
+  //     setUserData(data);
+  //   } else {
+  //     setProfileData(null);
+  //     setUserData(null);
+  //   }
+  // }, []);
+  
   const handleHumburgerMenu = () => {
     setIsMenuOpen(false);
   };
@@ -44,12 +47,14 @@ function Header() {
   const handleSignIn = () => {
     navigate("/login");
   };
-
+  useEffect(()=>{
+    if(userData) setUserData(null);
+  },[userData])
   const UserLinks = () => (
     <>
       {userData?.email ? (
         <p className="mr-4 w-fit px-2 flex gap-5">
-          <span>Welcome {userData.displayName || "User"}</span>
+          <span>Welcome {userData?.displayName || "User"}</span>
           <span className="cursor-pointer mr-4" onClick={handleLogOut}>
             Logout
           </span>
