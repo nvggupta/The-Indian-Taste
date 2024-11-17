@@ -4,8 +4,6 @@ import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { menu_list } from "../../Assets/Food Del Frontend Assets/assets/assets";
 import DropdownList from "./DropdownList";
 import { useDispatch, useSelector } from "react-redux";
-import Button from '@mui/material/Button';
-import { filterItmes } from "../MenuSlice/MenuSlice";
 function Dropdown() {
   const dispatch = useDispatch();
     const menuName = useSelector(state => state.Menu[0].chooseItem)
@@ -31,29 +29,28 @@ function Dropdown() {
     <>
       <div className="md:w-1/4 flex flex-col gap-4 relative w-full">
         <div
-          className="w-full bg-gray-500 p-5 flex justify-between items-center cursor-pointer"
+          className="w-full bg-blue-500 hover:bg-blue-600 transition-colors p-5 flex justify-between items-center cursor-pointer rounded-md"
           onClick={handleDropDown}
         >
-          <p className="text-white">{menuName}</p>
+          <p className="text-white font-medium">{menuName}</p>
           <div>
-            <div className="text-2xl  hidden" ref={downRef}>
+            <div className="text-2xl text-white hidden" ref={downRef}>
               <MdOutlineKeyboardArrowDown />
             </div>
 
-            <div className="text-2xl " ref={upRef}>
+            <div className="text-2xl text-white" ref={upRef}>
               <MdOutlineKeyboardArrowUp />
             </div>
           </div>
         </div>
-        <div className="bg-gray-500 w-full p-5 overflow-y-scroll scr absolute top-10 hidden " ref={dropdownList}>
-          <ul>
-            {menu_list.map((elem) => (
-              <DropdownList name={elem.menu_name} />
+        <div className="bg-blue-500 w-full p-5 overflow-y-scroll max-h-60 absolute top-16 hidden rounded-md shadow-lg z-10" ref={dropdownList}>
+          <ul className="space-y-2">
+            {menu_list.map((elem, index) => (
+              <DropdownList key={index} name={elem.menu_name} />
             ))}
           </ul>
         </div>
-      </div>
-    </>
+      </div>    </>
   );
 }
 

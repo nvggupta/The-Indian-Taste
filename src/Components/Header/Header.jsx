@@ -7,23 +7,23 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { auth, db } from "../FireBase/firebase";
-import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../MenuSlice/user";
-import { clear } from "toastr";
+import { RxCross2 } from "react-icons/rx";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [profileData, setProfileData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const userData = useSelector((state) => state.User);
+  const userData = useSelector((state) => state.User); // Get user data from Redux
 
   useEffect(() => {
-    if (userData.email) {
+    if (userData?.email) {
       setProfileData(userData.email);
+    } else {
+      setProfileData(null);
     }
   }, [userData]);
 
@@ -47,9 +47,9 @@ function Header() {
 
   const UserLinks = () => (
     <>
-      {userData.email ? (
+      {userData?.email ? (
         <p className="mr-4 w-fit px-2 flex gap-5">
-          <span>Welcome {userData.displayName}</span>
+          <span>Welcome {userData.displayName || "User"}</span>
           <span className="cursor-pointer mr-4" onClick={handleLogOut}>
             Logout
           </span>
@@ -85,14 +85,6 @@ function Header() {
               </div>
             </Link>
             <div className="flex items-center text-white gap-5">
-              <div className="hidden sm:flex sm:w-fit py-2 items-center">
-                <div className="flex items-center">
-                  <MdLocationPin />
-                  <h4>Delhi, New Delhi</h4>
-                  <MdKeyboardArrowDown />
-                </div>
-                <p className="text-xs">Connaught Place Minto Road, New Delhi</p>
-              </div>
               <div className="hidden sm:flex max-w-xl text-right items-center">
                 <UserLinks />
               </div>
@@ -105,7 +97,9 @@ function Header() {
             </div>
           </div>
           <div
-            className={`absolute right-2 bg-slate-100 top-[100px] w-full sm:w-1/5 p-5 ${isMenuOpen ? 'block' : 'hidden'}`}
+            className={`absolute right-2 bg-slate-100 top-[100px] w-full sm:w-1/5 p-5 ${
+              isMenuOpen ? "block" : "hidden"
+            }`}
           >
             <div className="flex flex-col gap-5 h-full w-full">
               <RxCross2
