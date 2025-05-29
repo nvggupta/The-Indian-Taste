@@ -14,7 +14,9 @@ import Signup from "./Components/Signup";
 import PageNotFound from "./Components/PageNoteFOund";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
-
+import { Suspense } from "react";
+import { lazy } from "react";
+ 
 function App() {
   const [showDesc, setShowDesc] = useState(false);
   const values = useSelector((state) => state.Menu[3]);

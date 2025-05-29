@@ -128,6 +128,7 @@ export const  food_list = [
         quantity: 0,
         totalPrice: 0,
         isVegetarian: true,
+        additonal_info: "XYZ", 
         isGlutenFree: true
     },
     {

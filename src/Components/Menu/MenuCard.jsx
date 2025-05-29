@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { increaseQuantity, decreaseQuantity,getDescription } from "../MenuSlice/MenuSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function MenuCard({ id, name, price, pics, quantity,  descShow  }) {
+function MenuCard({ id, name, price, pics, quantity,  descShow , additonal_info  }) {
   const dispatch = useDispatch();
  const handleAddToCart = ()=>{
    dispatch(increaseQuantity(id));

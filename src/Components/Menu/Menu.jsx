@@ -65,6 +65,7 @@ function Menu({descShow}) {
             price={elem.price}
             quantity={elem.quantity}
             descShow={descShow}
+            additonal_info = {elem?.additonal_info}
           />
         ))}
       </div>
