@@ -10,30 +10,46 @@ import { updateUser } from "./MenuSlice/user";
 
 function Login() {
   const dispatch = useDispatch();
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const SignInHandler = () => {
-    if (!values.email || !values.password) {
-      setErrorMessage("!!Please fill all fields!!");
-      return;
+  const [values, setValues] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "", firebase: "" });
+
+  const validate = () => {
+    let valid = true;
+    const newErrors = { email: "", password: "", firebase: "" };
+
+    if (!values.email.trim()) {
+      newErrors.email = "Email is required.";
+      valid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
+      newErrors.email = "Enter a valid email address.";
+      valid = false;
     }
-    setErrorMessage("");
+
+    if (!values.password.trim()) {
+      newErrors.password = "Password is required.";
+      valid = false;
+    } else if (values.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const SignInHandler = () => {
+    if (!validate()) return;
 
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (res) => {
         const user = res.user;
 
-        // Optional: Update profile (if required)
         await updateProfile(user, {
-          displayName: user.displayName || values.email.split("@")[0], // Default to email prefix if no name
+          displayName: user.displayName || values.email.split("@")[0],
         });
 
-        // Prepare user data for Redux
         const userInfo = {
           uid: user.uid,
           email: user.email,
@@ -41,58 +57,57 @@ function Login() {
           photoURL: user.photoURL || null,
         };
 
-        // Store user info in Redux
         dispatch(updateUser(userInfo));
-
-        // Store in localStorage (optional for persistence)
         localStorage.setItem("user", JSON.stringify(userInfo));
-
-        // Navigate to the homepage or dashboard
         navigate("/");
       })
-      .catch((err) => setErrorMessage(err.message));
+      .catch((err) => {
+        setErrors((prev) => ({ ...prev, firebase: err.message }));
+      });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
           <div className="relative">
             <input
               id="email"
               type="email"
               placeholder="Enter Email"
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, email: e.target.value }))
-              }
-              required
+              value={values.email}
+              onChange={(e) => setValues((prev) => ({ ...prev, email: e.target.value }))}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
             />
             <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
+
           <div className="relative">
             <input
               id="password"
               type="password"
               placeholder="Enter Password"
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, password: e.target.value }))
-              }
-              required
+              value={values.password}
+              onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
             />
             <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
-          <p className="text-red-500 text-sm">{errorMessage}</p>
+
+          {errors.firebase && <p className="text-red-500 text-sm">{errors.firebase}</p>}
+
           <button
             type="button"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             onClick={SignInHandler}
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Login
           </button>
-          <Link to="/Signup" className="block text-center">
+
+          <Link to="/Signup" className="block text-center mt-2">
             <p className="text-gray-600">
               Don't Have an Account?{" "}
               <span className="text-blue-500 hover:text-blue-700">Register</span>
