@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import Landing from "./Components/LandingPage/Landing";
-import Menu from "./Components/Menu/Menu";
-import Cart from "./Components/Cart/Cart";
-import Reservation from "./Components/ReservedYourTable/Reservation";
-import OrderOnline from "./Components/OrderOnline/OrderOnline";
-import PaymentSuccess from "./Components/Payment/PaymentPaymentSuccess";
-import Login from "./Components/Login";
-import Signup from "./Components/Signup";
-import PageNotFound from "./Components/PageNoteFOund";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
-import { Suspense } from "react";
-import { lazy } from "react";
- 
+
+
+const Landing = lazy(() => import("./Components/LandingPage/Landing"));
+const Menu = lazy(() => import("./Components/Menu/Menu"));
+const Cart = lazy(() => import("./Components/Cart/Cart"));
+const Reservation = lazy(() => import("./Components/ReservedYourTable/Reservation"));
+const OrderOnline = lazy(() => import("./Components/OrderOnline/OrderOnline"));
+const PaymentSuccess = lazy(() => import("./Components/Payment/PaymentPaymentSuccess"));
+const Login = lazy(() => import("./Components/Login"));
+const Signup = lazy(() => import("./Components/Signup"));
+const PageNotFound = lazy(() => import("./Components/PageNoteFOund"));
+
 function App() {
   const [showDesc, setShowDesc] = useState(false);
   const values = useSelector((state) => state.Menu[3]);
@@ -33,10 +33,10 @@ function App() {
   }, [showDesc]);
 
   return (
-    <>
-      <Router>
-        <Header />
-        <div ref={showDescref}>
+    <Router>
+      <Header />
+      <div ref={showDescref}>
+        <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
           <Routes>
             {/* Public Routes */}
             <Route
@@ -109,27 +109,28 @@ function App() {
             {/* Fallback Route */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-          <Footer />
-        </div>
-        {showDesc && (
-          <div className="backdrop" onClick={() => setShowDesc(false)}>
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-              <img
-                src={values.pics}
-                alt="Description"
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
-              <div className="mt-4">
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {values.name}
-                </h2>
-                <p className="mt-2 text-gray-600">{values.desc}</p>
-              </div>
+        </Suspense>
+        <Footer />
+      </div>
+
+      {showDesc && (
+        <div className="backdrop" onClick={() => setShowDesc(false)}>
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+            <img
+              src={values.pics}
+              alt="Description"
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="mt-4">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {values.name}
+              </h2>
+              <p className="mt-2 text-gray-600">{values.desc}</p>
             </div>
           </div>
-        )}
-      </Router>
-    </>
+        </div>
+      )}
+    </Router>
   );
 }
 

@@ -6,25 +6,19 @@ import DropdownList from "./DropdownList";
 import { useDispatch, useSelector } from "react-redux";
 function Dropdown() {
   const dispatch = useDispatch();
-    const menuName = useSelector(state => state.Menu[0].chooseItem)
+  const menuName = useSelector((state) => state.Menu[0].chooseItem);
   const [display, setDisplay] = useState(false);
   const upRef = useRef(null);
   const downRef = useRef(null);
   const dropdownList = useRef(null);
   const handleDropDown = () => {
-    setDisplay((prev) => !prev);
-    if (display) {
-      upRef.current.style.display = "none";
-      downRef.current.style.display = "block";
-      dropdownList.current.style.display = "block"
-    } else {
-      upRef.current.style.display = "block";
-      downRef.current.style.display = "none";
-      dropdownList.current.style.display = "none"
-    }
-
+    const isOpen = !display;
+    setDisplay(isOpen);
+    upRef.current.style.display = isOpen ? "block" : "none";
+    downRef.current.style.display = isOpen ? "none" : "block";
+    dropdownList.current.style.display = isOpen ? "block" : "none";
   };
-  
+
   return (
     <>
       <div className="md:w-1/4 flex flex-col gap-4 relative w-full">
@@ -43,14 +37,23 @@ function Dropdown() {
             </div>
           </div>
         </div>
-        <div className="bg-blue-500 w-full p-5 overflow-y-scroll max-h-60 absolute top-16 hidden rounded-md shadow-lg z-10" ref={dropdownList}>
+        <div
+          className="bg-blue-500 w-full p-5 overflow-y-scroll max-h-60 absolute top-16 hidden rounded-md shadow-lg z-10
+             scrollbar-hide"
+          ref={dropdownList}
+        >
           <ul className="space-y-2">
             {menu_list.map((elem, index) => (
-              <DropdownList key={index} name={elem.menu_name} />
+              <DropdownList
+                key={index}
+                name={elem.menu_name}
+                setDisplay={setDisplay}
+              />
             ))}
           </ul>
         </div>
-      </div>    </>
+      </div>{" "}
+    </>
   );
 }
 
